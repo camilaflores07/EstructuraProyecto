@@ -11,10 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Insertamos valores
-    list.push_front(0, 10);
+    list.push_front(0, 10); // siempre pone el nuevo valor al inicio de la lista.
     list.push_front(0, 20);
     list.push_front(0, 30);
-    list.push_back(0, 40);
+    list.push_back(0, 40); // siempre pone el nuevo valor al final de la lista.
     list.push_back(0, 50);
     list.print();
 

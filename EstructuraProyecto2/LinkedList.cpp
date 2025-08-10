@@ -28,7 +28,6 @@ void LinkedList::push_front(int pos, int value) {
 }
 
 
-
 void LinkedList::push_back(int pos, int value) {
     Node* newNode = new Node(value, nullptr);
     if (head == nullptr) {
