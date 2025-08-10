@@ -18,6 +18,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void onInsertarLS();
+    void onBorrarLS();
+    void onBuscarLS();
+
+
 private:
     Ui::MainWindow *ui;
     LinkedList list;

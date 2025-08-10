@@ -21,6 +21,9 @@ public:
     void remove_value(int value);
     void insert_value(int pos, int value);
 
+    void remove_at(int pos);
+
+
     //buscar
     int find(int value);
 
@@ -29,6 +32,7 @@ public:
 private:
     Node* head; //nodo 1
     Node* tail; //fin
+
 };
 
 #endif // LINKEDLIST_H

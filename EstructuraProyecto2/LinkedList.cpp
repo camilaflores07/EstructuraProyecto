@@ -60,6 +60,29 @@ void LinkedList::insert_value(int pos, int value) {
     if (current == tail) tail = newNode; // si insertamos después del último
 }
 
+void LinkedList::remove_at(int pos) {
+    if (pos < 0 || head == nullptr) return;
+
+    if (pos == 0) {           // borrar cabeza
+        pop_front();
+        return;
+    }
+
+    int idx = 0;
+    Node* prev = head;
+    while (prev != nullptr && idx < pos - 1) {
+        prev = prev->next;
+        idx++;
+    }
+    if (prev == nullptr || prev->next == nullptr) return; // fuera de rango
+
+    Node* target = prev->next;
+    prev->next = target->next;
+    if (target == tail) tail = prev;  // si borramos el último, mover tail
+    delete target;
+}
+
+
 void LinkedList::pop_front() {
     if (head == nullptr) return;
     Node* tmp = head;
