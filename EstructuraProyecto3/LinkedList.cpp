@@ -18,18 +18,18 @@ LinkedList::~LinkedList() {
     tail = nullptr;
 }
 
-void LinkedList::push_front(int /*pos*/, int value) {
+void LinkedList::push_front(int pos, int value) {
     Node* newNode = new Node(value, head);
     head = newNode;
     if (tail == nullptr) {
-        tail = newNode; // lista estaba vacía
+        tail = newNode;
     }
 }
 
-void LinkedList::push_back(int /*pos*/, int value) {
+void LinkedList::push_back(int pos, int value) {
     Node* newNode = new Node(value, nullptr);
     if (head == nullptr) {
-        head = tail = newNode; // lista vacía
+        head = tail = newNode;
     } else {
         tail->next = newNode;
         tail = newNode;
@@ -51,14 +51,14 @@ void LinkedList::insert_value(int pos, int value) {
         index++;
     }
 
-    if (current == nullptr) { // posición > tamaño → al final
+    if (current == nullptr) {
         push_back(pos, value);
         return;
     }
 
     Node* newNode = new Node(value, current->next);
     current->next = newNode;
-    if (current == tail) tail = newNode; // si insertamos después del último
+    if (current == tail) tail = newNode;
 }
 
 void LinkedList::remove_at(int pos) {
@@ -75,7 +75,7 @@ void LinkedList::remove_at(int pos) {
         prev = prev->next;
         idx++;
     }
-    if (prev == nullptr || prev->next == nullptr) return; // fuera de rango
+    if (prev == nullptr || prev->next == nullptr) return;
 
     Node* target = prev->next;
     prev->next = target->next;
@@ -87,20 +87,20 @@ void LinkedList::pop_front() {
     if (head == nullptr) return;
     Node* tmp = head;
     head = head->next;
-    if (head == nullptr) tail = nullptr; // quedó vacía
+    if (head == nullptr) tail = nullptr;
     delete tmp;
 }
 
 void LinkedList::pop_back() {
     if (head == nullptr) return;
 
-    if (head->next == nullptr) { // un solo nodo
+    if (head->next == nullptr) {
         delete head;
         head = tail = nullptr;
         return;
     }
 
-    // buscar el penúltimo
+
     Node* current = head;
     while (current->next != tail) {
         current = current->next;

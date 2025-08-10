@@ -1,8 +1,8 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include <QList>     // <- para devolver los valores a la UI
-#include "Node.h"    // debe definir: struct Node { int data; Node* next; ... }
+#include <QList>
+#include "Node.h"
 
 class LinkedList {
 public:
@@ -25,11 +25,11 @@ public:
 
     // Utilidades
     void print();
-    QList<int> toList();   // <- NUEVO: para Pincel
+    QList<int> toList();
 
 private:
     Node* head; // primero
-    Node* tail; // último
+    Node* tail; // ultimo
 };
 
 #endif // LINKEDLIST_H

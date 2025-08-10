@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGraphicsScene>  // ← INCLUDE COMPLETO, no forward declaration
+#include <QGraphicsScene>
 #include <QGraphicsView>
 
-// SOLO declaración adelantada aquí
+
 class QGraphicsView;
 class QGraphicsScene;
 
