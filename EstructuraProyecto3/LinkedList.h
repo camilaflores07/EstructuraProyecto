@@ -9,21 +9,21 @@ public:
     LinkedList();
     ~LinkedList();
 
-    // Inserción
+    // Insercion
     void push_front(int pos, int value);
     void push_back(int pos, int value);
     void insert_value(int pos, int value);
 
-    // Eliminación
+    // Eliminacion
     void pop_front();
     void pop_back();
     void remove_value(int value);
     void remove_at(int pos);
 
-    // Búsqueda
+    // Busqueda
     int find(int value);
 
-    // Utilidades
+    // Pintar
     void print();
     QList<int> toList();
 

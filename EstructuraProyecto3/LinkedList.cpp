@@ -70,6 +70,7 @@ void LinkedList::remove_at(int pos) {
     }
 
     int idx = 0;
+
     Node* prev = head;
     while (prev != nullptr && idx < pos - 1) {
         prev = prev->next;
@@ -143,8 +144,6 @@ int LinkedList::find(int value) {
 }
 
 void LinkedList::print() {
-    cout << "[head=" << (head ? to_string(head->data) : string("null"))
-    << ", tail=" << (tail ? to_string(tail->data) : string("null")) << "]  ";
 
     Node* current = head;
     while (current != nullptr) {
