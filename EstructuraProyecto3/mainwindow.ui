@@ -250,9 +250,9 @@
           <widget class="QWidget" name="contenedorGraphisViewQueue" native="true">
            <property name="geometry">
             <rect>
-             <x>-1</x>
-             <y>-1</y>
-             <width>921</width>
+             <x>-10</x>
+             <y>0</y>
+             <width>1071</width>
              <height>481</height>
             </rect>
            </property>
@@ -268,8 +268,8 @@
             <widget class="QGroupBox" name="gbEnqueue">
              <property name="geometry">
               <rect>
-               <x>0</x>
-               <y>0</y>
+               <x>10</x>
+               <y>10</y>
                <width>281</width>
                <height>161</height>
               </rect>
@@ -320,8 +320,8 @@
             <widget class="QGroupBox" name="gbDequeue">
              <property name="geometry">
               <rect>
-               <x>0</x>
-               <y>170</y>
+               <x>10</x>
+               <y>180</y>
                <width>281</width>
                <height>101</height>
               </rect>
@@ -346,8 +346,8 @@
             <widget class="QGroupBox" name="gbBuscarQueue">
              <property name="geometry">
               <rect>
-               <x>0</x>
-               <y>290</y>
+               <x>10</x>
+               <y>300</y>
                <width>281</width>
                <height>131</height>
               </rect>
@@ -399,9 +399,9 @@
            <widget class="QGraphicsView" name="graphicsViewQueue">
             <property name="geometry">
              <rect>
-              <x>300</x>
-              <y>-140</y>
-              <width>1061</width>
+              <x>320</x>
+              <y>-150</y>
+              <width>1171</width>
               <height>861</height>
              </rect>
             </property>
