@@ -77,3 +77,9 @@ void MainWindow::actualizarDibujo()
     QList<int> valores = list.toList();
     pincel->redraw(valores);
 }
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+
+}
+

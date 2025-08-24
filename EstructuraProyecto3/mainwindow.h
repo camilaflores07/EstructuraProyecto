@@ -28,6 +28,8 @@ private slots:
     void onBorrarLS();
     void onBuscarLS();
 
+    void on_tabWidget_currentChanged(int index);
+
 private:
     Ui::MainWindow *ui;
 
