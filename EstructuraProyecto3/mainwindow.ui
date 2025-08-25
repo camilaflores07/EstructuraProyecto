@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1093</width>
+    <width>954</width>
     <height>600</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="ListaSimple">
        <attribute name="title">
@@ -517,7 +517,7 @@
             <x>10</x>
             <y>310</y>
             <width>281</width>
-            <height>131</height>
+            <height>101</height>
            </rect>
           </property>
           <property name="title">
@@ -528,32 +528,19 @@
             <rect>
              <x>10</x>
              <y>30</y>
-             <width>63</width>
+             <width>141</width>
              <height>20</height>
             </rect>
            </property>
            <property name="text">
-            <string>Numero</string>
+            <string>Muestre el primero:</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="editFindValPeek">
+          <widget class="QPushButton" name="btnPeekStack">
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>50</y>
-             <width>113</width>
-             <height>28</height>
-            </rect>
-           </property>
-           <property name="placeholderText">
-            <string>Value to Find</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="btnPeekStack_5">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>90</y>
+             <y>60</y>
              <width>83</width>
              <height>29</height>
             </rect>
@@ -813,8 +800,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1093</width>
-     <height>21</height>
+     <width>954</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOperaciones">

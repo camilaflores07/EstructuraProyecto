@@ -2,7 +2,6 @@
 #define QUEUE_H
 
 #include "Node.h"
-#include <iostream>
 
 class Queue {
 private:

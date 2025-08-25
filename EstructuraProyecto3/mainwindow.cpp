@@ -7,6 +7,7 @@
 #include "ui_mainwindow.h"
 #include "LinkedList.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent)
     queue = new Queue();
     pincelQueue = new PincelQueue(sceneQueue);
 
+    sceneStack = new QGraphicsScene(this);
+    ui->graphicsViewStack->setScene(sceneStack);  // Ajusta el nombre según tu UI
+    ui->graphicsViewStack->setRenderHint(QPainter::Antialiasing, true);
+    stack = new Stack();
+    pincelStack = new PincelStack(sceneStack);
+
     // Conexiones para LinkedList (código original)
     connect(ui->btnInsertarLS_2, &QPushButton::clicked, this, &MainWindow::onInsertarLS);
     connect(ui->btnBorrarLS_2,   &QPushButton::clicked, this, &MainWindow::onBorrarLS);
@@ -36,15 +43,22 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnBorrarrDequeue, &QPushButton::clicked, this, &MainWindow::onDequeueClicked);
     connect(ui->btnBuscarQ0ueue, &QPushButton::clicked, this, &MainWindow::onPeekClicked);
 
+    connect(ui->btnInsertarStack, &QPushButton::clicked, this, &MainWindow::onPushClicked);        // Ajusta nombres
+    connect(ui->btnPop, &QPushButton::clicked, this, &MainWindow::onPopClicked);          // según tu UI
+    connect(ui->btnPeekStack, &QPushButton::clicked, this, &MainWindow::onPeekStackClicked);
+
     // Actualizar vistas iniciales
     actualizarDibujo();
     actualizarDibujoQueue();
+    actualizarDibujoStack();
 }
 
 MainWindow::~MainWindow()
 {
     delete queue;
     delete pincelQueue;
+    delete stack;        // AGREGAR
+    delete pincelStack;  // AGREGAR
     delete ui;
 }
 
@@ -160,6 +174,70 @@ void MainWindow::actualizarDibujoQueue()
 {
     // Redibujar la cola directamente desde la estructura de nodos
     pincelQueue->redraw(queue);
+}
+
+void MainWindow::onPushClicked()
+{
+    QString text = ui->editNumStack->text(); // Según tu UI es editNumStack
+
+    if (text.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Ingrese un número para agregar al stack");
+        return;
+    }
+
+    bool ok;
+    int value = text.toInt(&ok);
+
+    if (!ok) {
+        QMessageBox::warning(this, "Error", "Ingrese un número válido");
+        return;
+    }
+
+    // Agregar al stack
+    stack->push(value);
+
+    // Limpiar el campo de entrada
+    ui->editNumStack->clear();
+
+    // Actualizar la vista
+    actualizarDibujoStack();
+}
+
+void MainWindow::onPopClicked()
+{
+    if (stack->isEmpty()) {
+        QMessageBox::information(this, "Información", "El stack está vacío");
+        return;
+    }
+
+    // Remover elemento del top
+    int removedValue = stack->pop();
+
+    // Actualizar la vista
+    actualizarDibujoStack();
+
+    // Mostrar mensaje
+    QMessageBox::information(this, "Pop", QString("Elemento removido del top: %1").arg(removedValue));
+}
+
+void MainWindow::onPeekStackClicked()
+{
+    if (stack->isEmpty()) {
+        QMessageBox::information(this, "Información", "El stack está vacío");
+        return;
+    }
+
+    // Ver el elemento del top sin removerlo
+    int topValue = stack->peek();
+
+    // Mostrar el elemento del top
+    QMessageBox::information(this, "Peek", QString("Elemento en el top: %1").arg(topValue));
+}
+
+void MainWindow::actualizarDibujoStack()
+{
+    // Redibujar el stack
+    pincelStack->redraw(stack);
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)

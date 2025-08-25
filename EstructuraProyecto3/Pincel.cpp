@@ -9,12 +9,7 @@ void Pincel::redraw(const QList<int> &valores)
 {
     scene->clear();
 
-    if (valores.isEmpty()) {
-        scene->addText("Lista vacía")->setPos(10, 10);
-        return;
-    }
-
-    qreal x = 60, y = 80;
+    qreal x = 20, y = 70;
     for (int i = 0; i < valores.size(); ++i) {
         drawNode(valores[i], x, y);
         if (i < valores.size() - 1)

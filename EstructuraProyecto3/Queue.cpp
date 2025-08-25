@@ -1,4 +1,8 @@
 #include "Queue.h"
+#include <iostream>
+using std::cout;
+using std::endl;
+
 
 Queue::Queue() {
     front = nullptr;
@@ -24,7 +28,7 @@ void Queue::enqueue(int value) {
 
 int Queue::dequeue() {
     if (isEmpty()) {
-        std::cout << "Queue is empty!" << std::endl;
+        std::cout << "Esta Vacio" << std::endl;
         return -1; // Valor por defecto cuando está vacía
     }
 
@@ -43,7 +47,7 @@ int Queue::dequeue() {
 
 int Queue::peek() const {
     if (isEmpty()) {
-        std::cout << "Queue is empty!" << std::endl;
+        std::cout << "Esta Vacio" << std::endl;
         return -1;
     }
     return front->data;

@@ -11,8 +11,11 @@ class QGraphicsScene;
 
 #include "LinkedList.h"
 #include "Pincel.h"
+#include "Stack.h"
+#include "PincelStack.h"
 #include "Queue.h"
 #include "PincelQueue.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,6 +38,11 @@ private slots:
     void onPeekClicked();
     void actualizarDibujoQueue();
 
+    void onPushClicked();
+    void onPopClicked();
+    void onPeekStackClicked();
+    void actualizarDibujoStack();
+
     void on_tabWidget_currentChanged(int index);
 
 private:
@@ -47,6 +55,10 @@ private:
     Queue* queue;
     PincelQueue* pincelQueue;
     QGraphicsScene* sceneQueue;
+
+    Stack* stack;
+    PincelStack* pincelStack;
+    QGraphicsScene* sceneStack;
 
     void actualizarDibujo();
 };

@@ -10,11 +10,6 @@ PincelQueue::PincelQueue(QGraphicsScene *scene) : scene(scene) {}
 void PincelQueue::redraw(Queue* queue) {
     scene->clear();
 
-    if (queue->isEmpty()) {
-        scene->addText("Queue vacía")->setPos(10, 10);
-        return;
-    }
-
     // Contar nodos para determinar posiciones
     int nodeCount = 0;
     Node* temp = queue->getFront();
