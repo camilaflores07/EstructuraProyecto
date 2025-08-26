@@ -16,7 +16,7 @@ void Stack::push(int data) {
 
 int Stack::pop() {
     if (isEmpty()) {
-        return -1; // Valor por defecto cuando stack está vacío
+        return -1;
     }
 
     Node* nodeToDelete = top;
@@ -30,7 +30,7 @@ int Stack::pop() {
 
 int Stack::peek() const {
     if (isEmpty()) {
-        return -1; // Valor por defecto cuando stack está vacío
+        return -1;
     }
 
     return top->data;

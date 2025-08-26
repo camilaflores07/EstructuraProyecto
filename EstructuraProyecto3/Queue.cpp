@@ -29,7 +29,7 @@ void Queue::enqueue(int value) {
 int Queue::dequeue() {
     if (isEmpty()) {
         std::cout << "Esta Vacio" << std::endl;
-        return -1; // Valor por defecto cuando está vacía
+        return -1;
     }
 
     Node* temp = front;

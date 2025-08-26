@@ -5,25 +5,22 @@
 
 class Queue {
 private:
-    Node* front;  // Primer elemento (para dequeue)
-    Node* rear;   // Último elemento (para enqueue)
+    Node* front;
+    Node* rear;
     int size;
 
 public:
     Queue();
     ~Queue();
 
-    // Operaciones principales
     void enqueue(int value);
     int dequeue();
     int peek() const;
 
-    // Utilidades
     bool isEmpty() const;
     int getSize() const;
     void clear();
 
-    // Para visualización
     Node* getFront() const;
 };
 

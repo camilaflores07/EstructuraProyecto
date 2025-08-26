@@ -14,40 +14,41 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Configuración para LinkedList (código original)
+    //SimpleList
     sceneLS = new QGraphicsScene(this);
     ui->graphicsViewLS->setScene(sceneLS);
     ui->graphicsViewLS->setRenderHint(QPainter::Antialiasing, true);
     pincel = new Pincel(sceneLS);
 
-    // Configuración para Queue (nuevo)
+    //Queue
     sceneQueue = new QGraphicsScene(this);
     ui->graphicsViewQueue->setScene(sceneQueue);
     ui->graphicsViewQueue->setRenderHint(QPainter::Antialiasing, true);
     queue = new Queue();
     pincelQueue = new PincelQueue(sceneQueue);
 
+    //Stack
     sceneStack = new QGraphicsScene(this);
-    ui->graphicsViewStack->setScene(sceneStack);  // Ajusta el nombre según tu UI
+    ui->graphicsViewStack->setScene(sceneStack);
     ui->graphicsViewStack->setRenderHint(QPainter::Antialiasing, true);
     stack = new Stack();
     pincelStack = new PincelStack(sceneStack);
 
-    // Conexiones para LinkedList (código original)
+    //connect SimpleList
     connect(ui->btnInsertarLS_2, &QPushButton::clicked, this, &MainWindow::onInsertarLS);
     connect(ui->btnBorrarLS_2,   &QPushButton::clicked, this, &MainWindow::onBorrarLS);
     connect(ui->btnBuscarLS_2,   &QPushButton::clicked, this, &MainWindow::onBuscarLS);
 
-    // Conexiones para Queue (nuevo) - usando nombres de la imagen
+    //connect Queue
     connect(ui->btnInsertarQueue, &QPushButton::clicked, this, &MainWindow::onEnqueueClicked);
     connect(ui->btnBorrarrDequeue, &QPushButton::clicked, this, &MainWindow::onDequeueClicked);
     connect(ui->btnBuscarQ0ueue, &QPushButton::clicked, this, &MainWindow::onPeekClicked);
 
-    connect(ui->btnInsertarStack, &QPushButton::clicked, this, &MainWindow::onPushClicked);        // Ajusta nombres
-    connect(ui->btnPop, &QPushButton::clicked, this, &MainWindow::onPopClicked);          // según tu UI
+    //connect Stack
+    connect(ui->btnInsertarStack, &QPushButton::clicked, this, &MainWindow::onPushClicked);
+    connect(ui->btnPop, &QPushButton::clicked, this, &MainWindow::onPopClicked);
     connect(ui->btnPeekStack, &QPushButton::clicked, this, &MainWindow::onPeekStackClicked);
 
-    // Actualizar vistas iniciales
     actualizarDibujo();
     actualizarDibujoQueue();
     actualizarDibujoStack();
@@ -57,12 +58,12 @@ MainWindow::~MainWindow()
 {
     delete queue;
     delete pincelQueue;
-    delete stack;        // AGREGAR
-    delete pincelStack;  // AGREGAR
+    delete stack;
+    delete pincelStack;
     delete ui;
 }
 
-// Métodos originales para LinkedList
+//==========================SimpleList============================================
 void MainWindow::onInsertarLS()
 {
     bool okPos=false, okNum=false;
@@ -111,7 +112,7 @@ void MainWindow::actualizarDibujo()
     pincel->redraw(valores);
 }
 
-// Métodos nuevos para Queue
+//==========================Queue=================================================
 void MainWindow::onEnqueueClicked()
 {
     QString text = ui->editNumQueue->text();
@@ -129,13 +130,8 @@ void MainWindow::onEnqueueClicked()
         return;
     }
 
-    // Agregar a la cola
     queue->enqueue(value);
-
-    // Limpiar el campo de entrada
     ui->editNumQueue->clear();
-
-    // Actualizar la vista
     actualizarDibujoQueue();
 }
 
@@ -146,13 +142,8 @@ void MainWindow::onDequeueClicked()
         return;
     }
 
-    // Remover elemento
     int removedValue = queue->dequeue();
-
-    // Actualizar la vista
     actualizarDibujoQueue();
-
-    // Mostrar mensaje
     QMessageBox::information(this, "Dequeue", QString("Elemento removido: %1").arg(removedValue));
 }
 
@@ -163,22 +154,21 @@ void MainWindow::onPeekClicked()
         return;
     }
 
-    // Ver el primer elemento sin removerlo
     int frontValue = queue->peek();
 
-    // Mostrar el elemento del frente
     QMessageBox::information(this, "Peek", QString("Primer elemento: %1").arg(frontValue));
 }
 
 void MainWindow::actualizarDibujoQueue()
 {
-    // Redibujar la cola directamente desde la estructura de nodos
     pincelQueue->redraw(queue);
 }
 
+//==========================Stack==============================================
+
 void MainWindow::onPushClicked()
 {
-    QString text = ui->editNumStack->text(); // Según tu UI es editNumStack
+    QString text = ui->editNumStack->text();
 
     if (text.isEmpty()) {
         QMessageBox::warning(this, "Error", "Ingrese un número para agregar al stack");
@@ -193,13 +183,8 @@ void MainWindow::onPushClicked()
         return;
     }
 
-    // Agregar al stack
     stack->push(value);
-
-    // Limpiar el campo de entrada
     ui->editNumStack->clear();
-
-    // Actualizar la vista
     actualizarDibujoStack();
 }
 
