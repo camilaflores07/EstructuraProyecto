@@ -20,6 +20,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsViewLS->setRenderHint(QPainter::Antialiasing, true);
     pincel = new Pincel(sceneLS);
 
+    //DLL
+    sceneDLL = new QGraphicsScene(this);
+    ui->graphicsViewDLL->setScene(sceneDLL);
+    pincelDLL = new PincelDoubleLinkedList(sceneDLL);
+
     //Queue
     sceneQueue = new QGraphicsScene(this);
     ui->graphicsViewQueue->setScene(sceneQueue);
@@ -38,6 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnInsertarLS_2, &QPushButton::clicked, this, &MainWindow::onInsertarLS);
     connect(ui->btnBorrarLS_2,   &QPushButton::clicked, this, &MainWindow::onBorrarLS);
     connect(ui->btnBuscarLS_2,   &QPushButton::clicked, this, &MainWindow::onBuscarLS);
+
+    //connect DLL
+    connect(ui->btnInsertarDLL, &QPushButton::clicked, this, &MainWindow::onInsertarDLL);
+    connect(ui->btnBorrarDLL, &QPushButton::clicked, this, &MainWindow::onBorrarDLL);
+    connect(ui->btnBuscarDLL, &QPushButton::clicked, this, &MainWindow::onBuscarDLL);
 
     //connect Queue
     connect(ui->btnInsertarQueue, &QPushButton::clicked, this, &MainWindow::onEnqueueClicked);
@@ -60,6 +70,7 @@ MainWindow::~MainWindow()
     delete pincelQueue;
     delete stack;
     delete pincelStack;
+    delete pincelDLL;
     delete ui;
 }
 
@@ -110,6 +121,55 @@ void MainWindow::actualizarDibujo()
 {
     QList<int> valores = list.toList();
     pincel->redraw(valores);
+}
+
+//========================DLL====================================================
+void MainWindow::onInsertarDLL()
+{
+    bool okPos=false, okNum=false;
+    int pos = ui->editPosDLL->text().toInt(&okPos);
+    int val = ui->editNumDLL->text().toInt(&okNum);
+    if (!okPos || !okNum) {
+        QMessageBox::warning(this, "Datos inválidos", "Escribe números válidos en Posición y Número.");
+        return;
+    }
+    doubleList.insert_value(pos, val);
+    ui->editNumDLL->clear();
+    actualizarDibujoDLL();
+}
+
+void MainWindow::onBorrarDLL()
+{
+    bool ok=false;
+    int pos = ui->editDelPosDLL->text().toInt(&ok);
+    if (!ok || pos < 0) {
+        QMessageBox::warning(this, "Posición inválida", "Escribe una posición válida (0, 1, 2 …).");
+        return;
+    }
+    doubleList.remove_at(pos);
+    ui->editDelPosDLL->clear();
+    actualizarDibujoDLL();
+}
+
+void MainWindow::onBuscarDLL()
+{
+    bool ok=false;
+    int val = ui->editFindValDLL->text().toInt(&ok);
+    if (!ok) {
+        QMessageBox::warning(this, "Buscar", "Escribe un número válido.");
+        return;
+    }
+    int pos = doubleList.find(val);
+    if (pos == -1)
+        QMessageBox::information(this, "Buscar", "No encontrado.");
+    else
+        QMessageBox::information(this, "Buscar", QString("Encontrado en posición %1").arg(pos));
+}
+
+void MainWindow::actualizarDibujoDLL()
+{
+    QList<int> valores = doubleList.toList();
+    pincelDLL->redraw(valores);
 }
 
 //==========================Queue=================================================
@@ -194,14 +254,8 @@ void MainWindow::onPopClicked()
         QMessageBox::information(this, "Información", "El stack está vacío");
         return;
     }
-
-    // Remover elemento del top
     int removedValue = stack->pop();
-
-    // Actualizar la vista
     actualizarDibujoStack();
-
-    // Mostrar mensaje
     QMessageBox::information(this, "Pop", QString("Elemento removido del top: %1").arg(removedValue));
 }
 
@@ -212,16 +266,12 @@ void MainWindow::onPeekStackClicked()
         return;
     }
 
-    // Ver el elemento del top sin removerlo
     int topValue = stack->peek();
-
-    // Mostrar el elemento del top
     QMessageBox::information(this, "Peek", QString("Elemento en el top: %1").arg(topValue));
 }
 
 void MainWindow::actualizarDibujoStack()
 {
-    // Redibujar el stack
     pincelStack->redraw(stack);
 }
 

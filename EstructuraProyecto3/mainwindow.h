@@ -11,6 +11,8 @@ class QGraphicsScene;
 
 #include "LinkedList.h"
 #include "Pincel.h"
+#include "DoubleLinkedList.h"
+#include "PincelDoubleLinkedList.h"
 #include "Stack.h"
 #include "PincelStack.h"
 #include "Queue.h"
@@ -33,6 +35,10 @@ private slots:
     void onBorrarLS();
     void onBuscarLS();
 
+    void onInsertarDLL();
+    void onBorrarDLL();
+    void onBuscarDLL();
+
     void onEnqueueClicked();
     void onDequeueClicked();
     void onPeekClicked();
@@ -52,6 +58,10 @@ private:
     QGraphicsScene *sceneLS = nullptr;
     Pincel *pincel = nullptr;
 
+    DoubleLinkedList doubleList;
+    QGraphicsScene *sceneDLL = nullptr;
+    PincelDoubleLinkedList *pincelDLL = nullptr;
+
     Queue* queue;
     PincelQueue* pincelQueue;
     QGraphicsScene* sceneQueue;
@@ -61,6 +71,7 @@ private:
     QGraphicsScene* sceneStack;
 
     void actualizarDibujo();
+    void actualizarDibujoDLL();
 };
 
 #endif // MAINWINDOW_H
