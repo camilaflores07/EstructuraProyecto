@@ -2,11 +2,13 @@
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+#include <QDir>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "LinkedList.h"
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -43,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnInsertarLS_2, &QPushButton::clicked, this, &MainWindow::onInsertarLS);
     connect(ui->btnBorrarLS_2,   &QPushButton::clicked, this, &MainWindow::onBorrarLS);
     connect(ui->btnBuscarLS_2,   &QPushButton::clicked, this, &MainWindow::onBuscarLS);
+    connect(ui->SaveLS , &QPushButton::clicked, this, &MainWindow::onSaveLS);
 
     //connect DLL
     connect(ui->btnInsertarDLL, &QPushButton::clicked, this, &MainWindow::onInsertarDLL);
@@ -53,11 +56,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnInsertarQueue, &QPushButton::clicked, this, &MainWindow::onEnqueueClicked);
     connect(ui->btnBorrarrDequeue, &QPushButton::clicked, this, &MainWindow::onDequeueClicked);
     connect(ui->btnBuscarQ0ueue, &QPushButton::clicked, this, &MainWindow::onPeekClicked);
+    connect(ui->SaveQueue , &QPushButton::clicked, this, &MainWindow::onSaveQueue);
 
     //connect Stack
     connect(ui->btnInsertarStack, &QPushButton::clicked, this, &MainWindow::onPushClicked);
     connect(ui->btnPop, &QPushButton::clicked, this, &MainWindow::onPopClicked);
     connect(ui->btnPeekStack, &QPushButton::clicked, this, &MainWindow::onPeekStackClicked);
+
+    cargarListaLS();
+    cargarListaQueue();
 
     actualizarDibujo();
     actualizarDibujoQueue();
@@ -115,6 +122,43 @@ void MainWindow::onBuscarLS()
         QMessageBox::information(this, "Buscar", "No encontrado.");
     else
         QMessageBox::information(this, "Buscar", QString("Encontrado en posición %1").arg(pos));
+}
+
+void MainWindow::onSaveLS()
+{
+    QFile file("lista_guardada.txt");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+
+        QList<int> valores = list.toList();
+        for (int valor : valores) {
+            out << valor << "\n";
+        }
+        file.close();
+        QMessageBox::information(this, "Guardar", "Lista guardada exitosamente!");
+    } else {
+        QMessageBox::warning(this, "Error", "No se pudo guardar el archivo.");
+    }
+}
+
+void MainWindow::cargarListaLS()
+{
+    QFile file("lista_guardada.txt");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+
+        list.clear();
+
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            bool ok;
+            int value = line.toInt(&ok);
+            if (ok) {
+                list.push_back(0, value);
+            }
+        }
+        file.close();
+    }
 }
 
 void MainWindow::actualizarDibujo()
@@ -222,6 +266,55 @@ void MainWindow::onPeekClicked()
 void MainWindow::actualizarDibujoQueue()
 {
     pincelQueue->redraw(queue);
+}
+
+// Método para guardar la Queue
+void MainWindow::onSaveQueue() {
+    QFile file("queue_data.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Error", "No se pudo crear el archivo.");
+        return;
+    }
+
+    QTextStream out(&file);
+    Node* current = queue->getFront();
+
+    while (current != nullptr) {
+        out << current->data << "\n";
+        current = current->next;
+    }
+
+    file.close();
+    QMessageBox::information(this, "Guardar", "Lista guardada exitosamente");
+}
+
+// Método para cargar datos automáticamente al iniciar
+void MainWindow::cargarListaQueue() {
+    QFile file("queue_data.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        // Si no existe el archivo, no hace nada (primera vez)
+        return;
+    }
+
+    // Limpiar la queue actual
+    queue->clear();
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        if (!line.isEmpty()) {
+            bool ok;
+            int value = line.toInt(&ok);
+            if (ok) {
+                queue->enqueue(value);
+            }
+        }
+    }
+
+    file.close();
+
+    // Actualizar el dibujo
+    actualizarDibujoQueue();
 }
 
 //==========================Stack==============================================

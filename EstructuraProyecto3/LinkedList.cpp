@@ -18,6 +18,21 @@ LinkedList::~LinkedList() {
     tail = nullptr;
 }
 
+void LinkedList::clear() {
+    Node* current = head;
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+    head = nullptr;
+    tail = nullptr;
+}
+
+bool LinkedList::isEmpty() {
+    return head == nullptr;
+}
+
 void LinkedList::push_front(int pos, int value) {
     Node* newNode = new Node(value, head);
     head = newNode;

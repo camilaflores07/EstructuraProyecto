@@ -9,6 +9,9 @@ public:
     LinkedList();
     ~LinkedList();
 
+    void clear();
+    bool isEmpty();
+
     void push_front(int pos, int value);
     void push_back(int pos, int value);
     void insert_value(int pos, int value);

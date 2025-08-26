@@ -13,13 +13,17 @@ public:
     Queue();
     ~Queue();
 
+
+
     void enqueue(int value);
     int dequeue();
     int peek() const;
 
     bool isEmpty() const;
     int getSize() const;
+
     void clear();
+
 
     Node* getFront() const;
 };

@@ -14,6 +14,8 @@ Queue::~Queue() {
     clear();
 }
 
+
+
 void Queue::enqueue(int value) {
     Node* newNode = new Node(value);
 
@@ -62,9 +64,15 @@ int Queue::getSize() const {
 }
 
 void Queue::clear() {
-    while (!isEmpty()) {
-        dequeue();
+    Node* current = front;
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        delete current;
+        current = nextNode;
     }
+    front = nullptr;
+    rear = nullptr;
+    size = 0;
 }
 
 Node* Queue::getFront() const {
